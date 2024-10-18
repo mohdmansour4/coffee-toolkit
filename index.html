@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Page Title</title>
+    <title>Language Toggle Integration</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         /* Additional CSS for the iframe */
@@ -13,6 +13,7 @@
             height: 0; /* Start with zero height */
             padding-bottom: 56.25%; /* 16:9 aspect ratio (height / width * 100) */
             overflow: hidden; /* Hide scroll bars */
+            margin-top: 20px; /* Space above the iframe */
         }
 
         .iframe-container iframe {
@@ -26,9 +27,47 @@
     </style>
 </head>
 <body>
+    <!-- Button Group for Language Toggle -->
+    <div class="language-toggle-group">
+        <button id="english-toggle" class="lang-toggle selected">English</button>
+        <button id="arabic-toggle" class="lang-toggle">العربية</button>
+    </div>
+
+    <!-- Calculator Box with Brew Method and Inputs -->
+    <div id="calculator-box">
+        <label id="brew-method-label">Brew Method</label>
+        <div class="brew-method">
+            <button id="filter-button" class="brew-button selected">Filter</button> <!-- Default selected -->
+            <button id="immersion-button" class="brew-button">Immersion</button>
+        </div>
+
+        <!-- Inputs for Calculator -->
+        <label id="dose-label">Dose (g):</label>
+        <input type="number" id="coffee-weight">
+
+        <label id="water-label">Water (g):</label>
+        <input type="number" id="water-weight">
+
+        <label id="bev-label">BEV (g):</label>
+        <input type="number" id="beverage-mass">
+
+        <label id="tds-label">TDS%:</label>
+        <input type="number" id="tds" step="0.01"> <!-- Adjusted to change by 0.01 increments -->
+
+        <!-- Results Section -->
+        <div class="results">
+            <p>Brew Ratio: <span id="brew-ratio-result"></span></p>
+            <p>Extraction Yield: <span id="extraction-yield-result"></span></p>
+        </div>
+    </div>
+
+    <!-- iframe for Coffee Toolkit -->
     <h2>Coffee Toolkit</h2>
     <div class="iframe-container">
         <iframe src="https://mohdmansour4.github.io/coffee-toolkit/" scrolling="no"></iframe>
     </div>
+
+    <!-- JavaScript File -->
+    <script src="script.js"></script>
 </body>
 </html>
