@@ -53,19 +53,16 @@ body[dir="rtl"] {
 /* Brew Method Buttons */
 .brew-method {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Center the buttons */
+    align-items: center;
     margin-bottom: 20px;
+    flex-wrap: wrap; /* Allows buttons to wrap on smaller screens */
+    gap: 10px; /* Adds space between buttons */
     width: 100%;
-    max-width: 600px; /* Limit width */
-    direction: ltr; /* Ensure buttons remain in the same order */
-}
-
-body[dir="rtl"] .brew-method {
-    direction: rtl; /* Switch button order when in RTL */
 }
 
 .brew-button {
-    padding: 12px 30px; /* Increased padding for wider buttons */
+    padding: 12px 20px; /* Reduced padding for narrower buttons */
     border-radius: 10px;
     border: none;
     background: #e5e9f0; /* Light gray */
@@ -73,21 +70,35 @@ body[dir="rtl"] .brew-method {
     font-size: 15px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    flex: 1; /* Equal space distribution */
+    flex: 0 0 auto; /* Allow buttons to only take up as much space as they need */
     text-align: center;
-    margin: 0 5px;
     white-space: nowrap; /* Prevent text wrapping */
     text-transform: uppercase; /* Capitalize text */
 }
 
+/* When selected */
 .brew-button.selected {
     background: #0056D2; /* More vibrant royal blue */
     color: white;
 }
 
+/* Hover effect */
 .brew-button:hover {
     background: #80BFFF; /* Light blue for hover */
     transform: scale(1.02); /* Subtle lift */
+}
+
+/* Responsive Behavior */
+@media (max-width: 480px) {
+    .brew-method {
+        flex-direction: column; /* Switch to vertical on smaller screens */
+        align-items: center; /* Ensure buttons stay centered */
+    }
+
+    .brew-button {
+        width: 100%; /* Make buttons take full width on small screens */
+        margin: 5px 0; /* Add margin between buttons */
+    }
 }
 
 /* Input Labels and Fields */
@@ -102,8 +113,9 @@ label {
 }
 
 input[type="number"] {
-    width: 100%;
-    padding: 10px;
+    width: 200px; /* Fixed width */
+    padding: 10px; /* Default padding */
+    padding: clamp(10px, 2vw, 20px); /* Ensures padding doesn't exceed 20px */
     border-radius: 10px;
     border: 1px solid #d1d9e6;
     background: #f9f9fc;
@@ -112,6 +124,9 @@ input[type="number"] {
     margin-top: 5px;
     margin-bottom: 15px;
     text-align: center; /* Center text */
+    display: block; /* Ensure the input takes its space */
+    margin-left: auto; /* Center horizontally */
+    margin-right: auto; /* Center horizontally */
 }
 
 input[type="number"]:focus {
