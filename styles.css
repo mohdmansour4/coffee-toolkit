@@ -1,3 +1,4 @@
+/* Global Styles */
 body {
     display: flex;
     flex-direction: column;
@@ -8,6 +9,8 @@ body {
     font-family: 'Roboto', sans-serif;
     gap: 30px;
     padding: 20px;
+    max-width: 1200px; /* Limit the maximum width */
+    margin: 0 auto; /* Center the content */
 }
 
 /* Center text and support RTL */
@@ -15,11 +18,14 @@ body[dir="rtl"] {
     direction: rtl;
 }
 
+/* Language Toggle Group */
 .language-toggle-group {
     display: flex;
     border: 1px solid #d1d9e6;
     border-radius: 10px;
     overflow: hidden;
+    width: 100%;
+    max-width: 600px; /* Limit width */
 }
 
 .lang-toggle {
@@ -43,13 +49,13 @@ body[dir="rtl"] {
     background: #4A90E2; /* Slightly lighter blue for hover */
 }
 
-/* Center and RTL support for Brew Method Buttons */
+/* Brew Method Buttons */
 .brew-method {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-    width: 100%; /* Ensures the buttons take up the full width */
-    max-width: 600px; /* Adjusted max width */
+    width: 100%;
+    max-width: 600px; /* Limit width */
 }
 
 .brew-button {
@@ -61,10 +67,10 @@ body[dir="rtl"] {
     font-size: 15px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    flex: 1; /* Ensured equal space distribution */
+    flex: 1; /* Equal space distribution */
     text-align: center;
     margin: 0 5px;
-    white-space: nowrap; /* Prevent text from wrapping to a new line */
+    white-space: nowrap; /* Prevent text wrapping */
     text-transform: uppercase; /* Capitalize text */
 }
 
@@ -124,6 +130,7 @@ input[type="number"]:focus {
 .iframe-container {
     position: relative;
     width: 100%; /* Full width */
+    max-width: 600px; /* Limit width */
     height: 600px; /* Fixed height */
     overflow: hidden; /* Hide scroll bars */
     margin-top: 20px; /* Space above the iframe */
@@ -136,4 +143,9 @@ input[type="number"]:focus {
     width: 100%;
     height: 100%;
     border: none; /* No border */
+}
+
+/* Universal Box-Sizing */
+* {
+    box-sizing: border-box;
 }
