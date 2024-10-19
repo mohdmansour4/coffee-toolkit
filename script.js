@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.dir = isArabic ? "rtl" : "ltr";
     }
 
-    // Switch to English
+    // Language Toggle Event Listeners
     englishToggle.addEventListener("click", () => {
         englishToggle.classList.add("selected");
         arabicToggle.classList.remove("selected");
@@ -64,7 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("content-frame").src = "https://mohdmansour4.github.io/coffee-toolkit/"; // English URL
     });
 
-    // Switch to Arabic
     arabicToggle.addEventListener("click", () => {
         arabicToggle.classList.add("selected");
         englishToggle.classList.remove("selected");
@@ -72,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("content-frame").src = "https://mohdmansour4.github.io/coffee-toolkit/ar"; // Arabic URL
     });
 
-    // Toggle for brew method selection
+    // Brew Method Selection
     filterButton.addEventListener("click", () => {
         selectedBrewMethod = "filter";
         filterButton.classList.add("selected");
@@ -87,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
         calculateBrewParameters();
     });
 
+    // Calculation Functionality
     function calculateBrewParameters() {
         const coffeeWeight = parseFloat(coffeeWeightInput.value);
         const waterWeight = parseFloat(waterWeightInput.value);
