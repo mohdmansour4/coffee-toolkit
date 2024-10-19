@@ -23,32 +23,6 @@
             height: 100%;
             border: none; /* No border */
         }
-
-        /* Additional styles for buttons and layout */
-        .language-toggle-group {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .lang-toggle {
-            padding: 10px 20px;
-            margin: 0 5px;
-            cursor: pointer;
-            background: #0056D2; /* Button color */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            text-transform: uppercase; /* Capitalize text */
-        }
-
-        .lang-toggle.selected {
-            background: #0041a8; /* Darker shade for selected */
-        }
-
-        .lang-toggle:hover {
-            background: #0041a8; /* Darker shade for hover */
-        }
     </style>
 </head>
 <body>
@@ -92,26 +66,74 @@
         <iframe id="content-frame" src="https://mohdmansour4.github.io/coffee-toolkit/" scrolling="no"></iframe>
     </div>
 
-    <!-- JavaScript for Language Toggle -->
+    <!-- JavaScript for Calculations and Language Toggle -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const englishToggle = document.getElementById("english-toggle");
             const arabicToggle = document.getElementById("arabic-toggle");
             const iframe = document.getElementById("content-frame");
+            const coffeeWeightInput = document.getElementById("coffee-weight");
+            const waterWeightInput = document.getElementById("water-weight");
+            const beverageMassInput = document.getElementById("beverage-mass");
+            const tdsInput = document.getElementById("tds");
+            const brewRatioResult = document.getElementById("brew-ratio-result");
+            const extractionYieldResult = document.getElementById("extraction-yield-result");
+            let selectedBrewMethod = "filter"; // Default brew method
 
+            // Language Toggle Functionality
             englishToggle.addEventListener("click", function() {
-                // Set the language to English
                 iframe.src = "https://mohdmansour4.github.io/coffee-toolkit/"; // English URL
                 englishToggle.classList.add("selected");
                 arabicToggle.classList.remove("selected");
             });
 
             arabicToggle.addEventListener("click", function() {
-                // Set the language to Arabic
-                iframe.src = "https://mohdmansour4.github.io/coffee-toolkit/ar"; // Arabic URL (change this if different)
+                iframe.src = "https://mohdmansour4.github.io/coffee-toolkit/ar"; // Arabic URL (change if different)
                 arabicToggle.classList.add("selected");
                 englishToggle.classList.remove("selected");
             });
+
+            // Brew Method Selection
+            document.getElementById("filter-button").addEventListener("click", function() {
+                selectedBrewMethod = "filter";
+                this.classList.add("selected");
+                document.getElementById("immersion-button").classList.remove("selected");
+                calculateBrewParameters();
+            });
+
+            document.getElementById("immersion-button").addEventListener("click", function() {
+                selectedBrewMethod = "immersion";
+                this.classList.add("selected");
+                document.getElementById("filter-button").classList.remove("selected");
+                calculateBrewParameters();
+            });
+
+            // Calculation Functionality
+            function calculateBrewParameters() {
+                const coffeeWeight = parseFloat(coffeeWeightInput.value);
+                const waterWeight = parseFloat(waterWeightInput.value);
+                const beverageMass = parseFloat(beverageMassInput.value);
+                const tds = parseFloat(tdsInput.value);
+
+                if (isNaN(coffeeWeight) || isNaN(waterWeight) || isNaN(beverageMass) || isNaN(tds)) return;
+
+                const brewRatio = (waterWeight / coffeeWeight).toFixed(2);
+                let extractionYield;
+                if (selectedBrewMethod === "filter") {
+                    extractionYield = ((beverageMass / coffeeWeight) * tds).toFixed(2);
+                } else if (selectedBrewMethod === "immersion") {
+                    extractionYield = (tds * brewRatio).toFixed(2);
+                }
+
+                brewRatioResult.textContent = brewRatio;
+                extractionYieldResult.textContent = `${extractionYield}%`;
+            }
+
+            // Input Event Listeners
+            coffeeWeightInput.addEventListener("input", calculateBrewParameters);
+            waterWeightInput.addEventListener("input", calculateBrewParameters);
+            beverageMassInput.addEventListener("input", calculateBrewParameters);
+            tdsInput.addEventListener("input", calculateBrewParameters);
         });
     </script>
 </body>
