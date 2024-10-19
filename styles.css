@@ -11,11 +11,12 @@ body {
     padding: 20px;
     max-width: 1200px; /* Limit the maximum width */
     margin: 0 auto; /* Center the content */
+    transition: all 0.3s ease; /* Smooth transition for changes */
 }
 
-/* Center text and support RTL */
+/* RTL Support */
 body[dir="rtl"] {
-    direction: rtl;
+    direction: rtl; /* Enable right-to-left text direction */
 }
 
 /* Language Toggle Group */
@@ -56,6 +57,11 @@ body[dir="rtl"] {
     margin-bottom: 20px;
     width: 100%;
     max-width: 600px; /* Limit width */
+    direction: ltr; /* Ensure buttons remain in the same order */
+}
+
+body[dir="rtl"] .brew-method {
+    direction: rtl; /* Switch button order when in RTL */
 }
 
 .brew-button {
