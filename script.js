@@ -8,8 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const brewRatioResult = document.getElementById("brew-ratio-result");
     const extractionYieldResult = document.getElementById("extraction-yield-result");
 
-    let selectedBrewMethod = "filter";
+    let selectedBrewMethod = "filter"; // Default to filter method
 
+    // Function to update language based on the input
     function updateLanguage(isArabic) {
         const arabicText = {
             brewMethod: "طريقة التحضير",
@@ -43,10 +44,13 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("tds-label").textContent = textContent.tds;
         filterButton.textContent = textContent.filter;
         immersionButton.textContent = textContent.immersion;
+        document.querySelector(".results p:nth-child(1)").firstChild.textContent = `${textContent.brewRatio}: `;
+        document.querySelector(".results p:nth-child(2)").firstChild.textContent = `${textContent.extractionYield}: `;
     }
 
-    // Listen for external commands (e.g., from the Carrd page)
+    // Listen for external commands to switch languages
     window.addEventListener("message", (event) => {
+        console.log("Received message:", event.data); // For debugging
         if (event.data === "switch-to-arabic") {
             updateLanguage(true);
         } else if (event.data === "switch-to-english") {
@@ -55,20 +59,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Brew Method Selection
-    filterButton.addEventListener("click", () => {
-        selectedBrewMethod = "filter";
-        filterButton.classList.add("selected");
-        immersionButton.classList.remove("selected");
+    function selectBrewMethod(method) {
+        selectedBrewMethod = method;
+        if (method === "filter") {
+            filterButton.classList.add("selected");
+            immersionButton.classList.remove("selected");
+        } else if (method === "immersion") {
+            immersionButton.classList.add("selected");
+            filterButton.classList.remove("selected");
+        }
         calculateBrewParameters();
+    }
+
+    filterButton.addEventListener("click", () => {
+        selectBrewMethod("filter");
     });
 
     immersionButton.addEventListener("click", () => {
-        selectedBrewMethod = "immersion";
-        immersionButton.classList.add("selected");
-        filterButton.classList.remove("selected");
-        calculateBrewParameters();
+        selectBrewMethod("immersion");
     });
 
+    // Function to calculate brew parameters
     function calculateBrewParameters() {
         const coffeeWeight = parseFloat(coffeeWeightInput.value);
         const waterWeight = parseFloat(waterWeightInput.value);
@@ -85,11 +96,19 @@ document.addEventListener("DOMContentLoaded", () => {
             extractionYield = (tds * brewRatio).toFixed(2);
         }
 
+        // Update the results on the screen
+        brewRatioResult.style.color = "#000000"; // Brew Ratio always in black
         brewRatioResult.textContent = brewRatio;
+
+        if (extractionYield >= 18 && extractionYield <= 22) {
+            extractionYieldResult.style.color = "#00b300"; // Green for optimal range
+        } else {
+            extractionYieldResult.style.color = "#ff0000"; // Red for outside optimal range
+        }
         extractionYieldResult.textContent = `${extractionYield}%`;
     }
 
-    // Add event listeners to inputs
+    // Add event listeners to inputs for live calculation
     coffeeWeightInput.addEventListener("input", calculateBrewParameters);
     waterWeightInput.addEventListener("input", calculateBrewParameters);
     beverageMassInput.addEventListener("input", calculateBrewParameters);
