@@ -82,6 +82,7 @@ input[type="number"]::-webkit-outer-spin-button {
     font-size: 15px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    flex: 1;
     text-align: center;
     text-transform: uppercase;
 }
@@ -117,7 +118,7 @@ input[type="number"]::-webkit-outer-spin-button {
     }
 
     .brew-button {
-        width: 70%; /* Make buttons take full width on small screens */
+        width: 100%; /* Make buttons take full width on small screens */
         margin: 5px 0; /* Add margin between buttons */
     }
 }
