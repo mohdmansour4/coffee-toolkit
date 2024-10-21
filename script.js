@@ -52,8 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector(".results p:nth-child(1)").firstChild.textContent = `${textContent.brewRatio}: `;
         document.querySelector(".results p:nth-child(2)").firstChild.textContent = `${textContent.extractionYield}: `;
 
-        // Switch text direction based on the language
+        // Switch text direction and apply bold font only for Arabic
         document.body.setAttribute("dir", isArabic ? "rtl" : "ltr");
+        document.body.style.fontWeight = isArabic ? "bold" : "normal";
     }
 
     // Listen for external commands to switch languages
