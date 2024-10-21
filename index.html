@@ -10,6 +10,7 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #ffffff;
+            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -17,7 +18,7 @@
         }
 
         #calculator-box {
-            max-width: 270px;
+            max-width: 400px;
             width: 100%;
             background-color: #f9f9f9;
             padding: 20px;
@@ -48,30 +49,30 @@
 
         <label id="dose-label">Dose (g):</label>
         <div class="stepper">
-            <button onclick="this.nextElementSibling.stepDown()">-</button>
+            <button onclick="this.nextElementSibling.stepDown(); calculateResults();">-</button>
             <input type="number" id="coffee-weight" step="1">
-            <button onclick="this.previousElementSibling.stepUp()">+</button>
+            <button onclick="this.previousElementSibling.stepUp(); calculateResults();">+</button>
         </div>
 
         <label id="water-label">Water (g):</label>
         <div class="stepper">
-            <button onclick="this.nextElementSibling.stepDown()">-</button>
+            <button onclick="this.nextElementSibling.stepDown(); calculateResults();">-</button>
             <input type="number" id="water-weight" step="1">
-            <button onclick="this.previousElementSibling.stepUp()">+</button>
+            <button onclick="this.previousElementSibling.stepUp(); calculateResults();">+</button>
         </div>
 
         <label id="bev-label">BEV (g):</label>
         <div class="stepper">
-            <button onclick="this.nextElementSibling.stepDown()">-</button>
+            <button onclick="this.nextElementSibling.stepDown(); calculateResults();">-</button>
             <input type="number" id="beverage-mass" step="1">
-            <button onclick="this.previousElementSibling.stepUp()">+</button>
+            <button onclick="this.previousElementSibling.stepUp(); calculateResults();">+</button>
         </div>
 
         <label id="tds-label">TDS%:</label>
         <div class="stepper">
-            <button onclick="this.nextElementSibling.stepDown()">-</button>
+            <button onclick="this.nextElementSibling.stepDown(); calculateResults();">-</button>
             <input type="number" id="tds" step="0.01">
-            <button onclick="this.previousElementSibling.stepUp()">+</button>
+            <button onclick="this.previousElementSibling.stepUp(); calculateResults();">+</button>
         </div>
 
         <div class="results">
@@ -83,4 +84,3 @@
     <script src="script.js"></script>
 </body>
 </html>
- 
