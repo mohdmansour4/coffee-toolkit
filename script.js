@@ -8,6 +8,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const brewRatioResult = document.getElementById("brew-ratio-result");
     const extractionYieldResult = document.getElementById("extraction-yield-result");
 
+    // Specific labels to make bold in Arabic
+    const arabicBoldLabels = [
+        "brew-method-label",
+        "dose-label",
+        "water-label",
+        "bev-label",
+        "tds-label"
+    ];
+
     let selectedBrewMethod = "filter"; // Default to filter method
 
     // Text content for language switching
@@ -55,6 +64,11 @@ document.addEventListener("DOMContentLoaded", () => {
         // Switch text direction and apply bold font only for Arabic
         document.body.setAttribute("dir", isArabic ? "rtl" : "ltr");
         document.body.style.fontWeight = isArabic ? "bold" : "normal";
+
+        // Make specific labels bold only when in Arabic
+        arabicBoldLabels.forEach(id => {
+            document.getElementById(id).style.fontWeight = isArabic ? "bold" : "normal";
+        });
     }
 
     // Listen for external commands to switch languages
@@ -117,5 +131,4 @@ document.addEventListener("DOMContentLoaded", () => {
             calculateBrewParameters(); // Call the calculation function whenever a stepper button is clicked
         });
     });
-
 });
