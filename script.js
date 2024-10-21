@@ -109,4 +109,12 @@ document.addEventListener("DOMContentLoaded", () => {
     [coffeeWeightInput, waterWeightInput, beverageMassInput, tdsInput].forEach(input => {
         input.addEventListener("input", calculateBrewParameters);
     });
+
+    // Event listeners for stepper buttons to trigger calculation
+    document.querySelectorAll('.stepper button').forEach(button => {
+        button.addEventListener('click', () => {
+            calculateBrewParameters(); // Call the calculation function whenever a stepper button is clicked
+        });
+    });
+
 });
