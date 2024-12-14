@@ -5,62 +5,51 @@
     --hover-color: #1b666c;
     --error-color: #dc3545;
     --toast-bg: rgba(0, 0, 0, 0.8);
+    --success-color: #00b300;
 }
 
-#calculator {
-    max-width: 450px;
-    margin: 0px auto;
-    padding: 30px;
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #ffffff;
+}
+
+.calculator {
     background: #f5f5f5;
+    padding: 30px;
     border-radius: 12px;
     box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-    font-family: system-ui, -apple-system, sans-serif;
 }
 
-/* Calculator Header */
+/* Calculator Header with Reset Button */
 .calculator-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0px;
+    justify-content: flex-end;
+    margin-bottom: 25px;
 }
 
-.calculator-header h2 {
-    color: var(--primary-color);
-    margin: 0;
-}
-
-/* Brew Method Section */
-.brew-method-section {
-    margin-bottom: 30px;
-}
-
-.brew-method {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.brew-button {
-    padding: 12px 20px;
-    border-radius: 6px;
+.reset-btn {
+    background: transparent;
     border: none;
-    background: #e9ecef;
-    color: var(--text-color);
-    font-size: 15px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 120px;
+    padding: 1px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.brew-button.selected {
-    background: var(--primary-color);
-    color: white;
+.reset-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
 }
 
-.brew-button:hover:not(.selected) {
-    background: #dee2e6;
+.reset-btn svg {
+    color: var(--primary-color);
 }
 
 /* Input Groups */
@@ -78,7 +67,7 @@ label {
 }
 
 /* Stepper Container */
-.stepper {
+.stepper-input {
     position: relative;
     display: flex;
     align-items: center;
@@ -92,12 +81,12 @@ label {
     transition: border-color 0.3s ease;
 }
 
-.stepper.invalid {
+.stepper-input.invalid {
     border-color: var(--error-color);
 }
 
 /* Stepper Input */
-.stepper input[type="number"] {
+.stepper-input input[type="number"] {
     -moz-appearance: textfield;
     flex: 1;
     border: none;
@@ -111,8 +100,8 @@ label {
     background: transparent;
 }
 
-.stepper input[type="number"]::-webkit-outer-spin-button,
-.stepper input[type="number"]::-webkit-inner-spin-button {
+.stepper-input input[type="number"]::-webkit-outer-spin-button,
+.stepper-input input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
@@ -148,33 +137,6 @@ label {
     background: #dee2e6;
 }
 
-/* Results Section */
-.results {
-    margin-top: 30px;
-    padding: 20px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid var(--primary-color);
-    position: relative;
-}
-
-.result-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.result-item {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    font-size: 1.1em;
-}
-
-.result-value {
-    font-weight: 500;
-}
-
 /* Tooltip */
 .tooltip {
     position: absolute;
@@ -193,29 +155,49 @@ label {
     z-index: 3;
 }
 
-.stepper:hover .tooltip {
+.stepper-input:hover .tooltip {
     opacity: 1;
 }
 
-/* Utility Buttons */
-.reset-btn {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Results Section */
+.results {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    position: relative;
 }
 
-.reset-btn:hover {
-    background: rgba(0, 0, 0, 0.05);
+#results {
+    margin-bottom: 20px;
 }
 
-.reset-btn svg {
-    color: var(--primary-color);
+.result-item {
+    margin: 15px 0;
+    font-size: 1.1em;
+    text-align: center;
+}
+
+.result-item span {
+    transition: color 0.3s ease;
+}
+
+/* Extraction result colors */
+#extraction span.optimal {
+    color: var(--success-color);
+}
+
+#extraction span.sub-optimal {
+    color: var(--error-color);
+}
+
+.extraction-info {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9em;
+    color: #666;
 }
 
 /* Toast Notification */
@@ -239,13 +221,13 @@ label {
     opacity: 1;
 }
 
-/* Version Label */
-.version-label {
-    position: absolute;
-    bottom: 5px;
-    right: 10px;
-    font-size: 12px;
-    color: #999;
+/* Focus States */
+input:focus {
+    outline: none;
+}
+
+.stepper-input:focus-within {
+    border-color: var(--primary-color);
 }
 
 /* RTL Support */
@@ -264,41 +246,24 @@ label {
     left: 0;
 }
 
-/* Color indicators for extraction yield */
-#extraction-yield-result.optimal {
-    color: #00b300;
-}
-
-#extraction-yield-result.sub-optimal {
-    color: #ff0000;
-}
-
 /* Mobile Optimization */
-@media (max-width: 340px) {
-    #calculator {
+@media (max-width: 600px) {
+    .calculator {
         margin: 10px;
         padding: 20px;
     }
 
-    .stepper {
+    .stepper-input {
         width: 90%;
         height: 50px;
     }
 
     .stepper-btn {
-        width: 30px;
+        width: 50px;
     }
 
-    .stepper input[type="number"] {
+    .stepper-input input[type="number"] {
         font-size: 16px;
         padding: 0 50px;
-    }
-
-    .brew-method {
-        flex-direction: column;
-    }
-
-    .brew-button {
-        width: 100%;
     }
 }
