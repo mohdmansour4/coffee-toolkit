@@ -22,7 +22,7 @@ const translations = {
         tds: "التركيز TDS%:",
         filter: "التقطير",
         immersion: "الغمر الكلي",
-        brewRatio: "نسبة التخمير",
+        brewRatio: "نسبة القهوة الى الماء(الريشيو)",
         extractionYield: "نسبة الاستخلاص",
         reset: "تم إعادة تعيين الحاسبة",
         invalidInput: "الرجاء إدخال قيم صحيحة",
