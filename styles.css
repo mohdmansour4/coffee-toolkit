@@ -22,7 +22,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: 0px;
 }
 
 .calculator-header h2 {
@@ -274,7 +274,7 @@ label {
 }
 
 /* Mobile Optimization */
-@media (max-width: 600px) {
+@media (max-width: 340px) {
     #calculator {
         margin: 10px;
         padding: 20px;
@@ -286,7 +286,7 @@ label {
     }
 
     .stepper-btn {
-        width: 50px;
+        width: 30px;
     }
 
     .stepper input[type="number"] {
