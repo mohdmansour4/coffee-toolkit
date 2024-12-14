@@ -1,139 +1,304 @@
-/* Global Styles */
-body {
+:root {
+    --primary-color: #27949C;
+    --text-color: #333;
+    --border-color: #ddd;
+    --hover-color: #1b666c;
+    --error-color: #dc3545;
+    --toast-bg: rgba(0, 0, 0, 0.8);
+}
+
+#calculator {
+    max-width: 450px;
+    margin: 0px auto;
+    padding: 30px;
+    background: #f5f5f5;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Calculator Header */
+.calculator-header {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    min-height: 100vh;
-    background: #FFFFFF;
-    font-family: 'Roboto', sans-serif;
-    gap: 30px;
-    padding: 20px;
-    max-width: 1200px; /* Limit the maximum width */
-    margin: 0 auto; /* Center the content */
-    transition: all 0.3s ease; /* Smooth transition for changes */
+    margin-bottom: 25px;
 }
 
-/* Integrated Plus/Minus Stepper */
-.stepper {
-    display: flex;
-    align-items: center;
-    border: 1px solid #d1d9e6;
-    border-radius: 8px;
-    overflow: hidden;
-    width: 80%; /* Adjust for centering */
-    margin: 10px auto; /* Center the steppers */
-}
-
-.stepper input[type="number"] {
-    flex: 1; /* Allow input to take remaining space */
-    padding: 10px 0; /* Ensure uniform padding */
-    border: none;
-    text-align: center; /* Center text within the input */
-    font-size: 14px;
-    box-sizing: border-box;
-    height: 40px; /* Fixed height */
-    appearance: textfield; /* Ensure consistent look */
-    min-width: 0; /* Prevent input from stretching too much */
-}
-
-.stepper button {
-    width: 40px; /* Fixed width for uniformity */
-    background-color: #ddd;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s ease;
-    height: 40px; /* Match the height of input */
-}
-
-.stepper button:hover {
-    background-color: #ccc; /* Darker background on hover */
-}
-
-/* Remove default stepper arrows */
-input[type="number"]::-webkit-inner-spin-button, 
-input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
+.calculator-header h2 {
+    color: var(--primary-color);
     margin: 0;
 }
 
-/* Brew Method Buttons */
-.brew-method {
-    display: flex;
-    justify-content: center; /* Center the buttons */
-    align-items: center;
-    margin-bottom: 20px;
-    gap: 10px; /* Space between buttons */
-    width: 100%;
-    flex-wrap: wrap; /* Allows buttons to wrap on smaller screens */
+/* Brew Method Section */
+.brew-method-section {
+    margin-bottom: 30px;
 }
 
-/* Add space between the Brew Method label and the buttons */
-#brew-method-label {
-    margin-bottom: 17px;
+.brew-method {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
 }
 
 .brew-button {
     padding: 12px 20px;
-    border-radius: 10px;
+    border-radius: 6px;
     border: none;
-    background: #e5e9f0;
-    color: #333;
+    background: #e9ecef;
+    color: var(--text-color);
     font-size: 15px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    flex: 1;
-    text-align: center;
-    text-transform: uppercase;
+    transition: all 0.3s ease;
+    min-width: 120px;
 }
 
-/* When selected */
 .brew-button.selected {
-    background: #0056D2;
+    background: var(--primary-color);
     color: white;
 }
 
-/* Hover effect */
-.brew-button:hover {
-    background: #80BFFF;
+.brew-button:hover:not(.selected) {
+    background: #dee2e6;
 }
 
-/* Center the Brew Ratio and Extraction Yield Text */
+/* Input Groups */
+.input-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-align: center;
+}
+
+/* Stepper Container */
+.stepper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 45px;
+    width: 250px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 0 auto;
+    background: white;
+    transition: border-color 0.3s ease;
+}
+
+.stepper.invalid {
+    border-color: var(--error-color);
+}
+
+/* Stepper Input */
+.stepper input[type="number"] {
+    -moz-appearance: textfield;
+    flex: 1;
+    border: none;
+    text-align: center;
+    padding: 0 45px;
+    margin: 0;
+    font-size: 14px;
+    height: 100%;
+    width: 100%;
+    min-width: 0;
+    background: transparent;
+}
+
+.stepper input[type="number"]::-webkit-outer-spin-button,
+.stepper input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Stepper Buttons */
+.stepper-btn {
+    position: absolute;
+    width: 45px;
+    height: 100%;
+    background: #e9ecef;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    user-select: none;
+    transition: background-color 0.2s ease;
+    color: var(--text-color);
+    z-index: 2;
+}
+
+.stepper-btn.minus {
+    left: 0;
+}
+
+.stepper-btn.plus {
+    right: 0;
+}
+
+.stepper-btn:hover {
+    background: #dee2e6;
+}
+
+/* Results Section */
 .results {
-    font-size: 16px;
-    font-weight: 600;
-    text-align: center; /* Center text in results */
-    margin: 10px 0;
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    position: relative;
 }
 
-.results p {
-    margin: 10px 0; /* Add space between individual result lines */
+.result-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-/* Responsive Behavior */
-@media (max-width: 480px) {
+.result-item {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.1em;
+}
+
+.result-value {
+    font-weight: 500;
+}
+
+/* Tooltip */
+.tooltip {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--toast-bg);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+    z-index: 3;
+}
+
+.stepper:hover .tooltip {
+    opacity: 1;
+}
+
+/* Utility Buttons */
+.reset-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reset-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.reset-btn svg {
+    color: var(--primary-color);
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--toast-bg);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+/* Version Label */
+.version-label {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-size: 12px;
+    color: #999;
+}
+
+/* RTL Support */
+[dir="rtl"] .results {
+    border-left: none;
+    border-right: 4px solid var(--primary-color);
+}
+
+[dir="rtl"] .stepper-btn.minus {
+    left: auto;
+    right: 0;
+}
+
+[dir="rtl"] .stepper-btn.plus {
+    right: auto;
+    left: 0;
+}
+
+/* Color indicators for extraction yield */
+#extraction-yield-result.optimal {
+    color: #00b300;
+}
+
+#extraction-yield-result.sub-optimal {
+    color: #ff0000;
+}
+
+/* Mobile Optimization */
+@media (max-width: 600px) {
+    #calculator {
+        margin: 10px;
+        padding: 20px;
+    }
+
+    .stepper {
+        width: 90%;
+        height: 50px;
+    }
+
+    .stepper-btn {
+        width: 50px;
+    }
+
+    .stepper input[type="number"] {
+        font-size: 16px;
+        padding: 0 50px;
+    }
+
     .brew-method {
-        flex-direction: column; /* Switch to vertical on smaller screens */
-        align-items: center; /* Ensure buttons stay centered */
+        flex-direction: column;
     }
 
     .brew-button {
-        width: 100%; /* Make buttons take full width on small screens */
-        margin: 5px 0; /* Add margin between buttons */
+        width: 100%;
     }
-}
-
-/* Hide the final weight visually but keep it accessible */
-#finalWeight {
-    display: none; /* Completely hide it from the user */
-}
-
-/* Make the text bold when the body is set to RTL (Arabic) */
-body[dir="rtl"] {
-    font-weight: bold;
 }
